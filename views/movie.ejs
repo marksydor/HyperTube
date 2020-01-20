@@ -1,0 +1,155 @@
+<% include header %>
+<% include head %>
+
+<% if (error) { %>
+	<div class="alert alert-dismissible alert-danger popup">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong><%= error %></strong>
+	</div>
+<% } %>
+
+
+<style type="text/css">
+	.film {
+		width: 98%;
+		height: auto;
+		margin-left: 1%;
+		border-radius: 0.5rem;
+	}
+</style>
+<div class="container mt-1">
+	<div class="row">
+		<div class="col-">
+			<img src="<%= details.medium_cover_image%>" class="rounded" alt="movie img" onerror="this.src = '/img/no_poster.jpg'">
+		</div>
+		<div class="col-sm">
+			<hr class="mt-2 mb-1">
+			<h2><%= details.title_english%></h2>
+			<hr class="mt-2 mb-1">
+			<h3>Year: <a href="/<%= details.year%>" class="badge badge-success" style="text-decoration: none; color: #3E3F3A"><%= details.year%></a></h3>
+			<h3>Rating: <span class="badge badge-success" style="color: #3E3F3A"><%= details.rating%></span></h3>
+			<h3>Language:  <span class="badge badge-success" style="color: #3E3F3A"><%= details.language%></span></h3>
+			<hr class="mt-1 mb-1">
+			<b>Genres:</b>
+			<% details.genres.forEach(function(element){ %>
+				<a href="/<%= element%>" class="btn btn-secondary"><%= element%></a>
+			<% });%>
+			<hr class="mt-1 mb-1">
+			<div class="alert alert-light mb-0 mt-0" role="alert">
+				<%= details.description_full%>
+			</div>
+		</div>		
+	</div>
+	<hr class="mt-2 mb-2">
+	<video class="film" autoplay controls poster="<%= details.background_image%>" id="video">
+		<source src="http://localhost:3000/stream/<%= details.id%>" type="">
+	</video>
+	<!-- <script type="text/javascript">
+		let video = document.getElementById('video');
+		video.onloadedmetadata = (event) => {
+			var data = "id=" + '<%= details.id%>'; 
+			var xml = new XMLHttpRequest();
+			xml.open("POST", "/stream/GetSub", true);
+			xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xml.send(data);
+			xml.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					let path = xml.responseText;
+					if (path.length > 0) {
+						let track = document.createElement('track')
+						track.kind = 'subtitles';
+						track.srclang="en";
+						track.label="English";
+						track.src = path.substr(1);
+						video.append(track);
+					}
+				}
+			}
+		};
+	</script> -->
+	<hr class="mt-2 mb-0">				
+	<h1 class="font-weight-light text-center text-lg-left mt-1 mb-1">Simmilar Films</h1>
+	<hr class="mt-0 mb-2">
+	<div class="row text-center text-lg-left">
+		<% details.sug.forEach(function(element) {%>
+			<div class="col-lg-3 col-md-4 col-6">
+				<a href="/movie/<%=element.id%>" class="d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail" src="<%=element.img %>" alt="<%= element.name %>">
+					<h3 class="text-center my-3" style="color: #3E3F3A"><%= element.name %></h3>
+					<h6 style="float: left; margin-top: 0 !important;" class="text-center my-3">year: <%= element.year %></h6>
+					<h6 style="float: right; margin-top: 0 !important;" class="text-center my-3">rating: <%= element.rating %></h6>
+				</a>
+			</div>
+		<% }); %>
+	</div>
+	<hr class="mt-4 mb-4">
+	<div class="row" style="width: 94%; margin-left: 3%;">
+		<div class="col-">
+			<p style="text-align: center;"><img src="<%= details.user.avatar %>" style="width: 100px; height: auto;"></p>
+		</div>
+		<div class="col-sm">
+			<h3 style="color: #93C54B;"><%= details.user.userName %></h3>
+			<hr class="mt-0 mb-0">
+			<textarea class="alert alert-light mb-0 mt-0" role="alert" style="min-height: 64px; width: 100%; resize: none;" id="coment" placeholder="my comment..."></textarea>
+			<button type="button" class="btn btn-success" style="float: right;" onclick="addComent()">Coment</button>
+		</div>
+	</div>
+
+	<hr class="mt-4 mb-4">
+	<div id="coments-div">
+	<% if (details.coments && details.coments.length) { %>
+		<% details.coments.forEach(coment => { %>
+					<a href="/profile/<%= coment.user_id%>" style="text-decoration: none;">
+						<div class="row" style="width: 94%; margin-left: 3%;">
+							<div class="col-">
+								<p style="text-align: center;"><img src="<%= coment.avatar %>" style="width: 100px; height: auto;"></p>
+							</div>
+							<div class="col-sm">
+								<h3><%= coment.userName %></h3>
+								<hr class="mt-0 mb-0">
+								<div class="alert alert-light mb-0 mt-0" role="alert" style="min-height: 64px;">
+									<%= coment.coment %>
+								</div>
+							</div>
+						</div>
+						<hr class="mt-2 mb-2">
+					</a>
+
+		<% }) %>
+	<% } else { %>
+		<div class="alert alert-warning d-flex justify-content-center" id='noCom'>
+			No coments
+		</div>
+	<% } %>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	const addComent = () => {
+		let coment = document.getElementById('coment').value
+		if (/^[a-z0-9A-Z\s]+$/.test(coment) == false) {
+			document.getElementById('coment').value = '';
+			return ;
+		}
+		let xml = new XMLHttpRequest();
+		let sendData = JSON.stringify({coment: coment, yts_id: '<%= details.id %>'});
+		xml.open("POST", "/movie/addComent", true);
+		xml.setRequestHeader("Content-type", "application/json");
+		xml.addEventListener("load", () => {
+			let a = document.createElement('a')
+			let res = JSON.parse(xml.response)
+			document.getElementById('coment').value = '';
+			a.href = "/profile/" + res.id;
+			a.innerHTML = '<div class="row" style="width: 94%; margin-left: 3%;"><div class="col-"><p style="text-align: center;"><img src="' + res.avatar + '" style="width: 100px; height: auto;"></p></div><div class="col-sm"><h3>'+ res.userName +'</h3><hr class="mt-0 mb-0"><div class="alert alert-light mb-0 mt-0" role="alert" style="min-height: 64px;">' + res.coment + '</div></div></div><hr class="mt-2 mb-2">'
+			document.getElementById('coments-div').prepend(a);
+			if (document.getElementById('noCom'))
+				document.getElementById('noCom').remove();
+		});
+		xml.send(sendData);	
+	}
+</script>
+
+
+<% include footer %>

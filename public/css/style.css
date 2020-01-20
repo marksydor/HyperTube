@@ -1,0 +1,37 @@
+.popup {
+	position: fixed;
+	z-index: 10;
+	left: 2%;
+	top: 2%;
+}
+
+.bg-pink {
+	background: pink;
+}
+
+.bg-nav {
+	background: #3E3F3A ;
+}
+.border-nav {
+	border: 
+}
+
+/*
+**	AUTH
+*/
+html,body {
+	height: 100%;
+	font-family: 'Ubuntu';
+}
+
+.card-to-center {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.card-to-center .card {
+	width: 350px;
+	border: 3px solid;
+}

@@ -1,0 +1,285 @@
+.not-chat {
+	text-align: center;
+}
+
+.chat-btn  {
+	margin: 5px 0 0 5px;
+}
+
+.mess-text-div {
+	width: 100%;
+	margin: 2.5px;
+}
+
+.mess-text {
+	display: inline-block;
+	border-radius: 0.25rem;
+	color: white;
+	padding: 5px 15px;
+	margin-bottom: 2px;
+}
+
+.mess-text-1 {
+	display: inline-block;
+	margin-right: 100%;
+	border-color: #ffc107;
+	float: left;
+}
+
+.mess-text-2 {
+	display: inline-block;
+	margin-left: 100%;
+	border-color: #17a2b8;
+	float: right;
+}
+
+.mess-text h1 {
+	font-size: 22px;
+
+}
+
+.mess-text h2 {
+	font-size: 18px;
+}
+
+.chats {
+	width: 200px;
+	margin: 10px 20px;
+	padding: 3px 0px 3px 0px;
+	max-height: 84%;
+	overflow-y: auto;
+}
+
+.chats::-webkit-scrollbar {
+  width: 10px;
+}
+.chats::-webkit-scrollbar-track {
+	background: transparent;
+}
+.chats::-webkit-scrollbar-thumb  {
+	background: linear-gradient(to top, #F47C3C, #3E3F3A);
+	border-radius: 8px;
+}
+
+.chat-users {
+	color: white;
+	padding: 4px 2px 1px 2px;
+	background-color: #3E3F3A;
+	border-radius: 0.25rem;
+	transition: 0.9s;
+}
+
+.chat-users-top {
+	color: white;
+	padding: 4px 2px 1px 2px;
+	background-color: #3E3F3A;
+	border-radius: 0.25rem;
+	box-shadow: inset 0px 0px 40px 4px #93C54B;
+	transition: 0.9s;
+}
+
+.chat-users:hover {
+	box-shadow: inset 0px 0px 40px 4px #F47C3C;
+	transition: 0.9s;
+	cursor: pointer;
+}
+
+.chat-users img {
+	width: 64px;
+	height: 64px;
+	border-radius: 0.25rem;
+	float: left;
+	margin: 0;
+}
+
+.chat-users h1 {
+	font-size: 20px;
+	text-align: center;
+}
+
+.chat-users h2 {
+	font-size: 16px;
+	text-align: center;
+}
+
+.chat-div {
+	margin-right: 1%;
+	margin-top: 10px;
+	display: none;
+	float: right;
+	width: calc(99% - 240px);
+	height: 85%;
+	min-height: 440px;
+	min-width: 520px;
+	border-radius: 0.25rem;
+	padding: 10px 10px 0 10px;
+	background: #3E3F3A;
+}
+
+.mess-div {
+	margin-top: 5px;
+	padding: 5px 5px;
+	height: 75%;
+	width: calc(100% - 20px);
+	background: rgba(42, 42, 42, 0.4);
+	border-width: 1px;
+	border-radius: 0.25rem;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #3E3F3A;
+	overflow-y: auto;
+	overflow-x:  auto;
+	box-shadow: inset 0px 0px 5px 1px #F47C3C;
+}
+
+.mess-div::-webkit-scrollbar {
+  width: 10px;
+}
+.mess-div::-webkit-scrollbar-track {
+	background: transparent;
+}
+.mess-div::-webkit-scrollbar-thumb  {
+	background: linear-gradient(to top, #F47C3C, #3E3F3A);
+	border-radius: 8px;
+}
+
+.chat-user-send img {
+	float: left;
+	width: 52px;
+	height: 52px;
+	border-radius: 0.25rem;
+}
+
+.chat-user-send {
+	height: 60px;
+	width: calc(100% - 20px)
+}
+
+.chat-user-send h1 {
+	font-size: 24px;
+	margin-left: 60px;
+	color: #F47C3C;
+	transition: 1s;
+}
+
+.chat-user-send h2 {
+	font-size: 20px;
+	margin-left: 70px;
+}
+
+.chat-user-send a {
+	text-decoration: none;
+}
+
+.chat-btn textarea{
+	resize: none;
+	padding: 3px 3px;
+	height: 23%;
+	width: calc(100% - 90px);
+	float: left;
+	border: none;
+	color: white;
+	font-size: 18px;
+	background-color: rgba(42, 42, 42, 0.4);;
+	box-shadow: inset 0px 0px 5px 1px #F47C3C;
+	border-radius: 0.25rem;
+}
+
+#send-btn {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+	.chat-div {
+		margin-right: 1%;
+		margin-left: 1%;
+		margin-top: 10px;
+		min-width: 200px;
+		min-height: 300px;
+		display: none;
+		width: 98%;
+		height: 85%;
+		border-radius: 0.25rem;
+		padding: 10px 10px 0 10px;
+	}
+	.chats {
+		height: 20%;
+		width: 90%;
+	}
+	.chats {
+		margin-top: 20px;
+	}
+	.chat-users img {
+		width: 72px;
+		height: 72px;
+		border-radius: 0.25rem;
+		float: left;
+		margin: 0;
+	}
+
+	.chat-users h1 {
+		font-size: 28px;
+		text-align: center;
+	}
+
+	.chat-users h2 {
+		font-size: 25px;
+		text-align: center;
+	}
+
+	.mess-text {
+		display: inline-block;
+		border-color: black;
+		border-style: solid;
+		border-width: 1px;
+		border-radius: 12px;
+		padding: 5px 15px;
+		margin-bottom: 2px;
+	}
+	.mess-text h1 {
+		font-size: 18px;
+	}
+	.mess-text h2 {
+		font-size: 14px;
+	}
+}
+
+.notif {
+	margin-bottom: 5px;
+	background-color: rgba(20, 10, 10, 0.5);
+	padding: 10px;
+	height: 84px;
+	width: 300px;
+	border-radius: 0.25rem;
+	opacity: 1.0;
+}
+
+.notif img {
+	margin-top: 2px;
+	margin-bottom: 2px;
+	width: 60px;
+	height: 60px;
+	opacity: 0.9;
+	border-radius: 0.25rem;
+	float: left;
+}
+
+.notif h2 {
+	color: white;
+	text-align: center;
+	font-size: 22px;
+}
+
+.notif h3 {
+	color: white;
+	font-size: 18px;
+	margin-left: 82px;
+}
+
+.notif-div {
+	z-index: 2;
+	bottom: 20px;
+	left: 30px;
+	position: absolute;
+}

@@ -1,0 +1,194 @@
+<% include ../head %>
+<% include ../header %>
+
+<% if (error) { %>
+	<div class="alert alert-dismissible alert-danger popup">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong><%= error %></strong>
+	</div>
+<% } %>
+
+<div class="container mt-42 b  bg-light">
+	<div class="row">
+		<div class="col-md-auto col-sm-12 p-3 d-flex justify-content-center">
+			<div class="profile-header">
+				<img class="profile-pic" src="<%= avatar %>" id="avatar-1">
+			</div>
+		</div>
+		<div class="prof-ged">
+			<h1 class="profile-name" id="profile-name-1">
+				<%= firstName %>
+				<%= lastName %>
+			</h1>
+			<div style="display: flex; align-items: center;">
+				<h2 id="username-1"><%= userName %></h2>
+				<div class="status <%= (online) ? "online" : "offline" %>"></div>
+			</div>
+			<h4>&#60; <%= gender %> &#62;</h4>
+		</div>
+	</div>
+	<div class="row bg-light pt-4">
+		<div class="col p-0">
+			<nav>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<% if (self_mode) {%>
+					<a class="nav-item nav-link head1 <%= (self_mode) ? 'active' : '' %>" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Edit</a>
+					<% } %>
+					<a class="nav-item nav-link head2 <%= (!self_mode) ? 'active' : '' %>" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Bio</a>
+				</div>
+			</nav>
+			<% if (self_mode) {%>
+
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show hig active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" style="overflow-x: auto; background: #DFD7CA; height: 300px; padding: 10px;">
+					<form class="form-group" id="password">
+						<div class="form-group has-danger">
+							<label class="col-form-label col-form-label-lg" for="firstName">First name</label>
+							<input class="form-control form-control-lg" type="text" placeholder="..." id="firstName" pattern="[A-Za-z]+" value="<%= firstName %>">
+							<div class="invalid-feedback font-weight-bold text-glow">Wrong</div>
+						</div>
+						<div class="form-group has-danger">
+							<label class="col-form-label col-form-label-lg" for="lastName">Last name</label>
+							<input class="form-control form-control-lg" type="text" placeholder="..." id="lastName" value="<%= lastName %>">
+							<div class="invalid-feedback font-weight-bold text-glow">Wrong</div>
+						</div>
+						<div class="form-group has-danger">
+							<label class="col-form-label col-form-label-lg" for="userName">User name</label>
+							<input class="form-control form-control-lg" type="text" placeholder="..." id="userName" value="<%= userName %>" readonly>
+							<div class="invalid-feedback font-weight-bold text-glow">Wrong</div>
+						</div>
+						
+						<label class="col-form-label col-form-label-lg" for="gender">Gender</label>
+						<div class="form-group" id="gender">
+							<div class="custom-control custom-radio">
+								<input type="radio" id="gender_male" name="gender" class="custom-control-input"  <%= (gender == 'male') ? 'checked' : '' %> required>
+								<label class="custom-control-label" for="gender_male">Male</label>
+							</div>
+							<div class="custom-control custom-radio">
+								<input type="radio" id="gender_female" name="gender" class="custom-control-input" <%= (gender == 'female') ? 'checked' : '' %> required>
+								<label class="custom-control-label" for="gender_female">Female</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button"class="btn btn-primary" onclick="sendInfoData()">Save</button>
+						</div>
+					</form>
+					<% if (change) {%>
+						<form class="form-group" id="password">
+							<div class="form-group has-danger">
+								<label class="col-form-label col-form-label-lg" for="vpassword">New Password</label>
+								<input class="form-control form-control-lg" type="password" placeholder="New Password" id="vpassword">
+								<div class="invalid-feedback font-weight-bold text-glow">Wrong</div>
+							</div>
+							<div class="form-group has-danger">
+								<label class="col-form-label col-form-label-lg" for="cpassword">Confirm Password</label>
+								<input class="form-control form-control-lg" type="password" placeholder="Confirm Password" id="cpassword">
+								<div class="invalid-feedback font-weight-bold text-glow">Wrong</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button"class="btn btn-primary" onclick="sendPassword()">Save</button>
+							</div>
+						</form>
+					<% } %>
+					<form id="upload-form" method="POST" action="/profile/add_photos" enctype="multipart/form-data">
+						<div class="modal-body">
+							<label class="col-form-label col-form-label-lg" for="ava">Change Profile Photo</label>
+							<div class="form-group" id="ava">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" id="inputGroupFile02" name="photos"
+										accept=".png,.jpg,.jpeg">
+									<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Save</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close()">Close</button>
+						</div>
+					</form>
+				</div>
+				<% } %>
+
+				<div class="tab-pane fade show hig" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					<textarea id='bio' style="width: 100%; height: 250px; resize: none; background-color: pink; padding: 8px; font-size: 20px; color: #3E3F3A;" <%= (self_mode) ? '' : 'readonly' %>><%= (biography) ? biography : 'no biography...' %></textarea>
+					<% if (self_mode) { %><button type="button" class="btn btn-success" style="float: right; margin: 4px;" onclick="send_bio()">Save</button> <% } %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+	const sendInfoData = async () => {
+		
+		console.log('send(...)')
+
+		var req = new XMLHttpRequest()
+		var data = {
+			firstName:	firstName.value,
+			lastName:	lastName.value,
+			gender:		(gender_male.checked) ? 'male' : 'female',
+		}
+
+		req.open('put', '/profile/names', true)
+		req.onload = (res) => {
+			document.getElementById('profile-name-1').innerHTML = data.firstName + ' ' + data.lastName;
+			document.getElementById('gender-1').innerHTML = data.gender;
+		}
+		req.onerror = (e) => {
+			console.log(e)
+		}
+		req.responseType = 'json'
+		req.setRequestHeader('Content-Type', 'application/json')
+		// req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+		req.send(JSON.stringify(data))
+
+	}
+	const sendPassword = async () => {
+		
+		console.log('send(...)')
+
+		var req = new XMLHttpRequest()
+		var data = {
+			password: vpassword.value,
+			cpassword: cpassword.value
+		}
+		req.open('put', '/profile/edit_password', true)
+		req.onload = (res) => {
+			console.log(req.response)
+		}
+		req.onerror = (e) => {
+			console.log(e)
+		}
+		req.responseType = 'json'
+		req.setRequestHeader('Content-Type', 'application/json')
+		// // req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+		req.send(JSON.stringify(data))
+	}
+	const send_bio = async () => {
+		
+		console.log('send bio')
+
+		var req = new XMLHttpRequest()
+		var data = {
+			bio: bio.value
+		}
+		req.open('put', '/profile/edit_bio', true)
+		req.onload = (res) => {
+			console.log(req.response)
+		}
+		req.onerror = (e) => {
+			console.log(e)
+		}
+		req.responseType = 'json'
+		req.setRequestHeader('Content-Type', 'application/json')
+		// // req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+		req.send(JSON.stringify(data))
+	}
+</script>
+
+<% include ../footer %>

@@ -1,0 +1,22 @@
+<% include head %>
+<% include header %>
+
+
+<div class="container">
+	<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Watched Films</h1>
+	<hr class="mt-2 mb-2">
+
+	<div class="row text-center text-lg-left" id="films">
+		<% movies.forEach(function(element) {%>
+			<div class="col-lg-3 col-md-4 col-6">
+				<a href="/movie/<%=element.yts_id%>" class="d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail" src="<%=element.img %>" alt="<%= element.title %>" onerror="this.src = '/img/no_poster.jpg'">
+					<h3 class="text-center my-3"><%= element.title %></h3>
+					<h6 style="float: left; margin-top: 0 !important;" class="text-center my-3">year: <%= element.year %></h6>
+					<h6 style="float: right; margin-top: 0 !important;" class="text-center my-3">rating: <%= element.rating %></h6>
+				</a>
+			</div>
+		<% }); %>
+	</div>
+</div>
+<% include footer %>

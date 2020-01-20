@@ -1,0 +1,281 @@
+<% include head %>
+<% include header %>
+
+<% if (error) { %>
+	<div class="alert alert-dismissible alert-danger popup">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong><%= error %></strong>
+	</div>
+<% } %>
+
+<div class="container">
+		<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Films Gallery</h1>
+	<hr class="mt-2 mb-3">
+	<div class="active-cyan-4 mb-0">
+  		<input class="form-control" type="text" placeholder="Search" aria-label="Search" name="title" id='title' oninput="getResult()" value= <%= (search) ? search : '' %> >
+	</div>
+	<hr class="mt-3 mb-2">
+		<h1 class="font-weight-light text-center text-lg-left mt-0 mb-0">Genres</h1>
+	<hr class="mt-2 mb-2">
+	<style type="text/css">
+		.btn-secondary {
+			margin-top: 2px;
+			margin-bottom: 2px;
+		}
+	</style>
+	<div id="genre">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Action') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option1" autocomplete="off" value="Action" <%= (genre == 'Action') ? 'checked' : '' %>>Action
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Adventure') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option3" autocomplete="off" value="Adventure" <%= (genre == 'Adventure') ? 'checked' : '' %>>Adventure
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Animation') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option4" autocomplete="off" value="Animation" <%= (genre == 'Animation') ? 'checked' : '' %>>Animation
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Biography') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option5" autocomplete="off" value="Biography" <%= (genre == 'Biography') ? 'checked' : '' %>>Biography
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Comedy') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option6" autocomplete="off" value="Comedy" <%= (genre == 'Comedy') ? 'checked' : '' %>>Comedy
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Crime') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option7" autocomplete="off" value="Crime" <%= (genre == 'Crime') ? 'checked' : '' %>>Crime
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Documentary') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option8" autocomplete="off" value="Documentary" <%= (genre == 'Documentary') ? 'checked' : '' %>>Documentary
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Drama') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option9" autocomplete="off" value="Drama" <%= (genre == 'Drama') ? 'checked' : '' %>>Drama
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Family') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option10" autocomplete="off" value="Family" <%= (genre == 'Family') ? 'checked' : '' %>>Family
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Fantasy') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option11" autocomplete="off" value="Fantasy" <%= (genre == 'Fantasy') ? 'checked' : '' %>>Fantasy
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'History') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option14" autocomplete="off" value="History" <%= (genre == 'History') ? 'checked' : '' %>>History
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Horror') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option15" autocomplete="off" value="Horror" <%= (genre == 'Horror') ? 'checked' : '' %>>Horror
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Musical') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option16" autocomplete="off" value="Musical" <%= (genre == 'Musical') ? 'checked' : '' %>>Musical
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Music') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option17" autocomplete="off" value="Music" <%= (genre == 'Music') ? 'checked' : '' %>>Music
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Mystery') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option18" autocomplete="off" value="Mystery" <%= (genre == 'Mystery') ? 'checked' : '' %>>Mystery
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'News') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option19" autocomplete="off" value="News" <%= (genre == 'News') ? 'checked' : '' %>>News
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Reality-TV') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option20" autocomplete="off" value="Reality-TV" <%= (genre == 'Reality-TV') ? 'checked' : '' %>>Reality-TV
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Romance') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option21" autocomplete="off" value="Romance" <%= (genre == 'Romance') ? 'checked' : '' %>>Romance
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Sci-Fi') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option22" autocomplete="off" value="Sci-Fi" <%= (genre == 'Sci-Fi') ? 'checked' : '' %>>Sci-Fi
+  			</label>
+  		</div>	
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Sport') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option24" autocomplete="off" value="Sport" <%= (genre == 'Sport') ? 'checked' : '' %>>Sport
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Talk-Show') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option25" autocomplete="off" value="Talk-Show" <%= (genre == 'Talk-Show') ? 'checked' : '' %>>Talk-Show
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Thriller') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option26" autocomplete="off" value="Thriller" <%= (genre == 'Thriller') ? 'checked' : '' %>>Thriller
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'War') ? 'active' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option27" autocomplete="off" value="War" <%= (genre == 'War') ? 'checked' : '' %>>War
+  			</label>
+  		</div>		
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary <%= (genre == 'Western') ? 'checked' : '' %>">
+  					<input onchange='getResult()' type="checkbox" name="options" id="option28" autocomplete="off" value="Western" <%= (genre == 'Western') ? 'checked' : '' %>>Western
+  			</label>
+  		</div>
+	</div>
+	<hr class="mt-2 mb-2">
+	<div class="d-flex justify-content-center">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons" id="sort">
+  			<label class="btn btn-secondary active">
+  					<input onchange='getResult()' type="radio" name="sort" id="option1" autocomplete="off" checked> No Sort
+  			</label>
+			<label class="btn btn-secondary">
+  	  				<input onchange='getResult()' type="radio" name="sort" id="option2" autocomplete="off"> Sort By Name
+			</label>
+			<label class="btn btn-secondary">
+  	  				<input onchange='getResult()' type="radio" name="sort" id="option3" autocomplete="off"> Sort By Year
+			</label>
+  			<label class="btn btn-secondary">
+  	 				<input onchange='getResult()' type="radio" name="sort" id="option4" autocomplete="off" > Sort By Rating
+  			</label>
+		</div>
+		<div class="btn-group btn-group-toggle" data-toggle="buttons" id="status" style="margin-left: 2px">
+  			<label class="btn btn-secondary active">
+  				<input onchange='getResult()' type="radio" name="status" id="option1" autocomplete="off" checked> &#9660
+  			</label>
+			<label class="btn btn-secondary">
+  	  			<input onchange='getResult()' type="radio" name="status" id="option2" autocomplete="off"> &#9650 
+			</label>
+		</div>
+	</div>
+	<hr class="mt-2 mb-5">
+
+	<div class="row text-center text-lg-left" id="films">
+		<% movies.forEach(function(element) {%>
+			<div class="col-lg-3 col-md-4 col-6">
+				<a href="/movie/<%=element.id%>" class="d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail" src="<%=element.img %>" alt="/img/no_poster.jpg" onerror="this.src = '/img/no_poster.jpg'">
+					<h3 class="text-center my-3"><%= element.name %></h3>
+					<h6 style="float: left; margin-top: 0 !important;" class="text-center my-3">year: <%= element.year %></h6>
+					<h6 style="float: right; margin-top: 0 !important;" class="text-center my-3">rating: <%= element.rating %></h6>
+				</a>
+			</div>
+		<% }); %>
+	</div>
+</div>
+
+<script type="text/javascript">
+var page = 1;
+var temp = 0;
+
+function getParams () {
+	let elements = document.getElementById('sort').getElementsByTagName('input');
+	let genre = document.getElementById('genre').getElementsByTagName('input');
+	let status = document.getElementById('status').getElementsByTagName('input')
+	let title = document.getElementById('title').value
+	if (/^[a-zA-Z0-9]+$/.test(title) == false)
+		title = false
+	if (!title || title.length < 1)
+		title = false;
+	console.log(title)
+	let genreList = [];
+	let sort = elements[0].checked ? false : elements[1].checked ? 'title' : elements[2].checked ? 'year' : 'rating';
+	for (var i = 0; i < genre.length; i++) {
+		if (genre[i].checked) {
+			genreList.push(genre[i].value);
+		}
+	}
+	return ({
+		status: status[0].checked ? 'desc' : 'asc',
+		genre: genreList.length > 0 ? genreList : false,
+		sort: sort,
+		title: title
+	});
+}
+
+function getResult () {
+	window.scrollTo(0, 0);
+	let data = getParams();
+	data['page'] = 1;
+	var none = 'none';
+	var block = 'block';
+	let xml = new XMLHttpRequest();
+	let sendData = JSON.stringify(data);
+	xml.open("POST", "loadMovies", true);
+	xml.setRequestHeader("Content-type", "application/json");
+	xml.addEventListener("load", () => {
+		let films = document.getElementById("films");
+		films.innerHTML = '';
+		let new_films = JSON.parse(xml.response);
+		for (let i = 0; i < new_films.length; i++) {
+			let film = document.createElement('div');
+			film.className = 'col-lg-3 col-md-4 col-6';
+			film.innerHTML = `<a href="/movie/${new_films[i].id}" class="d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail" src="${new_films[i].img}" alt="/img/no_poster.jpg" onerror="this.src = '/img/no_poster.jpg'">
+					<h3 class="text-center my-3">${new_films[i].name}</h3>
+					<h6 style="float: left; margin-top: 0 !important;" class="text-center my-3">year: ${new_films[i].year}</h6>
+					<h6 style="float: right; margin-top: 0 !important;" class="text-center my-3">rating: ${new_films[i].rating}</h6>
+				</a>`
+			films.append(film);
+		}
+	});
+	xml.send(sendData);	
+}
+
+window.addEventListener('scroll', function() {
+	if (pageYOffset > (document.body.scrollHeight * 0.7) && page > temp) {		
+		temp++;
+		var none = 'none';
+		var block = 'block';
+		let xml = new XMLHttpRequest();
+		let data = getParams();
+		data['page'] = page + 1;
+		let sendData = JSON.stringify(data);
+		console.log(pageYOffset + '+' + document.body.scrollHeight)
+		xml.open("POST", "loadMovies", true);
+		xml.setRequestHeader("Content-type", "application/json");
+		xml.addEventListener("load", () => {
+			page++;
+			let films = document.getElementById("films");
+			let new_films = JSON.parse(xml.response);
+			for (let i = 0; i < new_films.length; i++) {
+				let film = document.createElement('div');
+				film.className = 'col-lg-3 col-md-4 col-6';
+				film.innerHTML = `<a href="/movie/${new_films[i].id}" class="d-block mb-4 h-100">
+					<img class="img-fluid img-thumbnail" src="${new_films[i].img}" alt="/img/no_poster.jpg" onerror="this.src = '/img/no_poster.jpg'">
+					<h3 class="text-center my-3">${new_films[i].name}</h3>
+					<h6 style="float: left; margin-top: 0 !important;" class="text-center my-3">year: ${new_films[i].year}</h6>
+					<h6 style="float: right; margin-top: 0 !important;" class="text-center my-3">rating: ${new_films[i].rating}</h6>
+				</a>`
+				films.append(film);
+			}
+		});
+		xml.send(sendData);	
+	}
+});
+
+</script>
+
+<% include footer %>

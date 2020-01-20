@@ -1,0 +1,52 @@
+<% include ../head %>
+
+
+<% if (error) { %>
+	<div class="alert alert-dismissible alert-danger popup">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong><%= error %></strong>
+	</div>
+<% } %>
+
+<div class="card-to-center">
+	
+	<div class="card border-primary border-warning">
+		<div class="card-header text-warning">
+			Sign Up
+		</div>
+		<div class="card-body">
+			<form method="POST">
+				<div class="form-group">
+					<label for="firstName">First name</label>
+					<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name">
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last name</label>
+					<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name">
+				</div>
+				<div class="form-group">
+					<label for="userName">Username</label>
+					<input type="text" class="form-control" id="userName" name="userName" placeholder="Username">
+				</div>
+				<div class="form-group">
+					<label for="mail">Email address</label>
+					<input type="email" class="form-control" id="mail" name="mail" aria-describedby="emailHelp" placeholder="Enter email">
+					<small id="emailHelp" class="form-text text-muted">Provide valid email</small>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+				</div>
+				<div class="form-group">
+					<label for="password">Confirm Password</label>
+					<input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Password">
+				</div>
+
+				<button type="submit" name="Send" class="btn btn-warning">Submit</button>
+			</form>
+		</div>
+		<p class="text-center"><a href="signin" class="text-warning">Already have one?</a></p>
+	</div>
+</div>
+
+<% include ../footer %>

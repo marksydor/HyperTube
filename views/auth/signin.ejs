@@ -1,0 +1,60 @@
+<% include ../head %>
+
+
+<% if (error) { %>
+	<div class="alert alert-dismissible alert-danger popup">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong><%= error %></strong>
+	</div>
+<% } %>
+
+<div class="card-to-center">
+	
+	<div class="card border-primary my-dark">
+		<div class="card-header text-secondary">
+			Sign In
+		</div>
+		<div class="card-body">
+			<form method="POST">
+				<div class="form-group">
+					<label for="userName">Username</label>
+					<input type="text" class="form-control" id="userName" name="userName" placeholder="Username">
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+				</div>
+
+				<button type="submit" name="Send" class="btn btn-secondary">Submit</button>
+			</form>
+		</div>
+		<style type="text/css">
+			.logo-icon {
+				transition: 0.2s;
+				width: 70px;
+				height: auto;
+				box-shadow: 0 0 1px;
+			}
+			.logo-icon:hover {
+				transition: 0.2s;
+				box-shadow: 3px 3px 5px;
+			}
+			.strat {
+				padding: 5px;
+				margin-bottom: 5px;
+			}
+			.my-dark {
+				border-color: black !important;
+			}
+		</style>		
+		<p class="text-center"><a href="signup" style="color: black;">Dont have an account?</a></p>
+		<p class="text-center"><a href="forget" style="color: black;">Forget password?</a></p>
+		<div class="d-flex justify-content-around strat">
+			<a href="/auth/facebook"><img src="/img/logo-2.png" class="logo-icon"></a>
+			<a href="/auth/42"><img src="/img/logo-1.png" class="logo-icon"></a>
+		</div>
+
+	</div>
+</div>
+
+<% include ../footer %>
